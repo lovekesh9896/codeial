@@ -1,3 +1,16 @@
 <link rel="stylesheet" href="/css/user_profile.css">
-
+<% if(locals.user){ %>  
+    <form action="/posts/create-new-post" id="new-post-form" method="post">
+        <textarea name="content" cols="30" rows="4"></textarea>
+        <button type="submit">Post</button>
+    </form>
+<% } %>
+<div id="posts-container">
+    <% for(var i=0;i < posts.length ;i++){ %>
+        <div class="one-post">
+            <p><%= posts[i].content %> <span style="color: white;"> by </span><%= posts[i].user.name %></p>
+            
+        </div>    
+    <% } %>
+</div>
    

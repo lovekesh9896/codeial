@@ -13,12 +13,18 @@ module.exports.statics = function(req,res){
 };
 
 module.exports.signUp = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
     return res.render('user_sign_up',{
         title : "Sign Up",
     })
 };
 
 module.exports.signIn = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect('/users/profile');
+    }
     return res.render('user_sign_in',{
         title : "Sign In",
     })
@@ -37,12 +43,20 @@ module.exports.create = function(req,res){
             Users.create(req.body, function(err,User){
                 if(err){console.log("Error in creating user");return};
                 
-                return res.redirect('/sign-in');
+                return res.redirect('/users/sign-in');
             });
+        }else{
+            return res.redirect('/users/sign-in');
         }
     });
 };
 // sign in and create session for user
 module.exports.createSession = function(req,res){
-    // to do
+    return res.redirect('/');
+}
+
+// sign out
+module.exports.distroySession = function(req,res){
+    req.logout();
+    return res.redirect('/');
 }

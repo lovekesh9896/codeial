@@ -1,16 +1,41 @@
 <link rel="stylesheet" href="/css/user_profile.css">
-<% if(locals.user){ %>  
-    <form action="/posts/create-new-post" id="new-post-form" method="post">
-        <textarea name="content" cols="30" rows="4"></textarea>
-        <button type="submit">Post</button>
-    </form>
-<% } %>
-<div id="posts-container">
-    <% for(var i=0;i < posts.length ;i++){ %>
-        <div class="one-post">
-            <p><%= posts[i].content %> <span style="color: white;"> by </span><%= posts[i].user.name %></p>
-            
-        </div>    
-    <% } %>
+<div id="layout-container">
+    <div id="left-section">
+        <h4>Friends</h4>
+        <% for(u of all_users) { %>
+            <p>
+                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
+            </p>
+        <% } %>
+    </div>
+    
+    <div id="center-section">
+        
+        <% if(locals.user){ %>
+            <div id="create-new-post">
+                
+                <form action="/posts/create" id="new-post-form" method="post">
+                    <img src="/images/profile1.jpg" id="profile-image">
+                    <textarea name="content" cols="30" rows="4" placeholder="Create post" required></textarea>
+                    <button type="submit" id="new-post-submit-button">Post</button>
+                </form>
+            </div>
+        <% } %>
+        
+        
+        <div id="posts-container" style="width: 100%;">
+            <% for(post of posts){ %>
+                <%- include('_post') -%>    
+            <% } %>
+        </div>
+           
+    </div>
+    <div id="right-section">
+    
+    </div>
+    
 </div>
-   
+
+<script src="/js/home_posts.js"></script>
+<!-- <script src="/js/home_comments.js"></script> -->
+

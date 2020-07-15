@@ -1,21 +1,21 @@
-<header>
-    page header
+<link rel="stylesheet" href="/css/header.css">
 
-    <ul>
+<header id="header">
+    <h2><a href="/" style= "text-decoration: none; color: black;"> Codeial | Home </a></h2>
+
+    <div id="user-info">
         <% if(locals.user) { %> 
-            <li>
-                <a href="/users/profile"><%= user.name %></a>
-            </li>
-            <li>
-                <a href="/users/sign-out">sign out</a>
-            </li>
+                
+            <a href="/users/profile/<%= user.id %>" id="user-name" class="text-white"><%= user.name %></a>
+        
+            <a href="/users/sign-out" class="text-white">Sign out</a>
+                
         <% }else{ %> 
-            <li>
-                <a href="/users/sign-in">sign In</a>
-            </li>
-            <li>
-                <a href="/users/sign-up">sign Up</a>
-            </li>
+                
+            <a href="/users/sign-in" class="text-white">Sign In</a>
+        
+            <a href="/users/sign-up" class="text-white">Sign Up</a>
+                
         <% } %>
-    </ul>
+    </div>
 </header>

@@ -1,0 +1,28 @@
+#header {
+  background: linear-gradient(90deg, #00B4DB, #0083B0);
+  display: flex;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 30px;
+  align-items: center;
+  box-sizing: content-box;
+  font-family: sans-serif;
+  height: 60px; }
+
+#user-info a {
+  text-decoration: none;
+  font-size: 24px;
+  margin-right: 10px;
+  transition: 0.5s;
+  border: 2px solid transparent;
+  padding: 2px; }
+
+#user-info a:hover {
+  border-color: white;
+  border-radius: 8px; }
+
+#user-name {
+  text-transform: capitalize; }
+
+.text-white {
+  color: white; }

@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="/css/user_profile.css">
+
+<div class="comment-section">
+
+    
+    <% if(locals.user){ %> 
+        <div class="comments">
+            <form action="/comments/create" class="create-comment-form" method="post" style="margin-top: 8px;">
+                <input type="text" name="content" class="comment-input" placeholder="Write Comments..." autocomplete=off>
+                <input type="hidden" name="post" value="<%= post._id %>">
+                <button type="submit" class="comment-submit">Add</button>
+            </form>
+        </div>
+    <% } %>
+    <div class="post-comments-list ">
+        <ul id="post-comments-<%= post._id %>" >
+            <% for (comment of post.comments){%>
+            
+                <li id="comment-<%=comment._id %>" class="one-comment">
+                    <span>
+                        <%= comment.content %> 
+                        <br>
+                        <small>
+                            <%= comment.user.name %>
+                        </small>
+                    </span>
+
+                    <% if(locals.user && locals.user.id == comment.user.id){ %>
+                        <small class=" delete-comment">
+                            <a class="delete-comment-button" href="/comments/destroy/<%= comment.id %>"><span class="material-icons delete-comment">delete</span></a>    
+                        </small>
+                    <% } %>
+                </li>    
+            <%} %>
+        </ul>
+    </div>
+</div>

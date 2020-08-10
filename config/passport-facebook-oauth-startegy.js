@@ -4,8 +4,8 @@ const crypto = require('crypto');
 const User = require('../models/user');
 
 passport.use(new facebookStrategy({
-    clientID: "584680355547148",
-    clientSecret: "2e1eca82a57a0b12807945b6a2eeedbc",
+    clientID: "",
+    clientSecret: "",
     callbackURL: "http://localhost:8000/users/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'gender','email']
   },

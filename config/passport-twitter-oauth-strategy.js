@@ -6,8 +6,8 @@ const crypto = require('crypto');
 const User = require('../models/user');
 
 passport.use(new twitterStrategy({
-    consumerKey: "LgI8KqCVyq78mBx989zDJZT8Y",
-    consumerSecret: "eES2W5KP03JVJ0vNVj0qIic5Mb2RQP6GNAilmnpovtKnY4iUly",
+    consumerKey: "",
+    consumerSecret: "",
     callbackURL: "http://127.0.0.1:8000/users/auth/twitter/callback",
     
   },

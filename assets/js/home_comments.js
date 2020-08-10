@@ -1,72 +1,106 @@
-// { 
-//     let commentSetup = function () {
-//         let newCommentForm = document.getElementsByClassName('create-comment-form');
-//         var commentSubmit = document.getElementsByClassName('comment-submit');
 
-//         for (let i = 0; i < commentSubmit.length; i++) {
-//             $(commentSubmit[i]).click(function (e) {
-//                 e.preventDefault();
-//                 let newForm = $(newCommentForm[i]);
-//                 console.log(newForm);
+class PostComments {
 
-//                 $.ajax({
-//                     type: 'post',
-//                     url: 'comments/create',
-//                     data: newForm.serialize(),
-//                     success: function (data) {
-//                         let newComment = newCommentDOM(data.data);
-//                         var postId = "#post-comments-" + data.data.postId;
-//                         $(postId).prepend(newComment);
-//                     },
-//                     error: function (err) {
-//                         console.log("Error", err.responseText);
-//                     }
-//                 });
-//             });
-//         }
+    constructor(postId){
+        
+        this.postId = postId;
+        // console.log(`#post-${postId}-comments-form`);
+        this.postContainer = $(`#post-${postId}`);
+        this.newCommentForm = $(`#post-${postId}-comments-form`);
 
-//     }
+        this.createComment(postId);
 
-//     let newCommentDOM = function (comment) {
-//         console.log(comment);
-//         return $(`
-//         <li id="comment-${comment.id }" class="one-comment">
-//                     <span>
-//                         ${ comment.content } 
-//                         <br>
-//                         <small>
-//                         ${ comment.user }
-//                         </small>
-//                     </span>
+        let self = this;
+        // call for all the existing comments
+        $(' .delete-comment-button', this.postContainer).each(function(){
+            self.deleteComment($(this));
+            
+        });
+    }
+    createComment(postId){
+        let pSelf = this;
+        // console.log(this.newCommentForm);
+        this.newCommentForm.submit(function(e){
+            console.log("post comments");
+            
+            e.preventDefault();
+            let self = this;
 
-//                     <small class=" delete-comment">
-//                         <a class="delete-comment-button" href="/comments/destroy/${ comment.id }"><span class="material-icons delete-comment">delete</span></a>    
-//                     </small>
-                    
-//                 </li>  `)
-//     }
+            $.ajax({
+                type: 'post',
+                url: '/comments/create',
+                data: $(self).serialize(),
+                success: function(data){
+                    console.log(data.data);
+                    let newComment = pSelf.newCommentDom(data.data);
+                    $(`#post-comments-${postId}`).prepend(newComment);
+                    pSelf.deleteComment($(' .delete-comment-button', newComment));
 
-//     // method to delete a comment from DOM
-//     let deleteComment = function (deleteLink) {
-//         $(deleteLink).click(function (e) {
-//             e.preventDefault();
+                    // CHANGE :: enable the functionality of the toggle like button on the new comment
+                    // new ToggleLike($(' .toggle-like-button', newComment));
+                    new Noty({
+                        theme: 'relax',
+                        text: "Comment published!",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
 
-//             $.ajax({
-//                 type: 'get',
-//                 url: $(deleteLink).prop('href'),
-//                 success: function (data) {
-//                     $(`#comment-${
-//                         data.data.id
-//                     }`).remove();
-//                     new Noty({text: 'comment deleted succesfully', type: 'success', theme: "relax", timeout: "1500"}).show();
-//                 },
-//                 error: function (error) {
-//                     new Noty({text: 'Error in deleting comment', type: 'error', theme: "relax", timeout: "1500"}).show();
-//                     console.log("Error", error);
-//                 }
-//             });
-//         });
-//     }
-//     // commentSetup();
+                }, error: function(error){
+                    console.log(error.responseText);
+                }
+            });
 
-// }
+
+        });
+    }
+
+    newCommentDom(comment){
+        console.log(comment);
+        return $(`
+            <li id="comment-${comment.id}" class="one-comment">
+                <span>${comment.content} 
+                    <br>
+                    <small>${comment.user}</small>
+                </span>
+
+                <small class=" delete-comment">
+                    <a class="delete-comment-button" href="/comments/destroy/${comment.id}">
+                        <span class="material-icons delete-comment">delete</span>
+                    </a>    
+                </small>
+            </li>  
+        `)
+    }
+
+    deleteComment(deleteLink){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success: function(data){
+                    $(`#comment-${data.data.comment_id}`).remove();
+
+                    new Noty({
+                        theme: 'relax',
+                        text: "Comment Deleted",
+                        type: 'success',
+                        layout: 'topRight',
+                        timeout: 1500
+                        
+                    }).show();
+                },error: function(error){
+                    console.log(error.responseText);
+                }
+            });
+
+        });
+    }
+
+    
+
+}
+

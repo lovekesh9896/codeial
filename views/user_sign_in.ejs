@@ -1,7 +1,97 @@
-<h1>Sign in</h1>
+<link rel="stylesheet" href="/css/sign-in.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/sign-up.css">
 
-<form action="/users/create-session" method="POST">
-    <input type="email" name="email" placeholder="enter email" required>
-    <input type="password" name="password" placeholder="enter passowrd" required>
-    <button type="submit">Login</button>
-</form>
+<div id="sign-in-cover">
+    <img src="/images/sign-in-cover.jpg" alt="background cover">
+</div>
+
+
+<div id="sign-in-form-div">
+    <b id="sign-in-moto">Login with Email and See What your Friends are Posting</b>
+    <div id="sign-in-div">
+        
+        <form id="sign-in-form" action="/users/create-session" method="POST">
+            <input type="email" name="email" placeholder="enter email" required>
+            <input type="password" name="password" placeholder="enter passowrd" required> 
+            <a id="forgot-password" href="/users/forgot-password"><small>Forgot password ? </small></a>          
+            <input type="submit" value="Sign In" style="margin-bottom: 10px;">
+        </form>
+        <span id="sign-up-option">Don't have an account? <a id="ab"><b>Sign Up</b></a> Instead</span>
+        
+    </div>
+    <hr>
+    <div id="or"><b>OR</b></div>
+    <div id="in-social-login-div"> 
+        <a href="/users/auth/facebook" class="fb btn-in">
+            <i class="fa fa-facebook fa-fw"></i>
+        </a>
+        <a href="/users/auth/twitter" class="twitter btn-in">
+            <i class="fa fa-twitter fa-fw"></i>
+        </a>
+        <a href="/users/auth/google" class="google btn-in">
+            <i class="fa fa-google fa-fw"></i>
+        </a>
+          
+    </div>
+    
+</div>
+
+<div id="sign-up-form-div">
+    <div id="account-create-div">
+        <form id="sign-up-form" action="/users/create" method="POST" >
+            <input type="text" name="name" placeholder="Username" required autocomplete="off">
+            <input type="email" name="email" placeholder="Email" required autocomplete="off">
+            <input type="password" name="password" placeholder="Password..." required>
+            <input type="password" name="conform_password" placeholder="Conform Password..." required>
+            <input type="submit" value="Sign Up">
+        </form>
+        <span id="sign-in-option">Already have an account? <a id="ba"><b>Sign In</b></a> Instead</span>
+    </div>
+    
+    <div id="social-login-div">
+        <span>Sign Up to Add Posts and Comments but make sure to Block your Relatives first</span>
+        <a href="/users/auth/facebook" class="fb btn">
+            <i class="fa fa-facebook fa-fw"></i> Sign Up with Facebook
+        </a>
+        <a href="/users/auth/twitter" class="twitter btn">
+            <i class="fa fa-twitter fa-fw"></i> Sign Up with Twitter
+        </a>
+        <a href="/users/auth/google" class="google btn">
+            <i class="fa fa-google fa-fw"></i> Sign Up with Google+
+        </a>
+          
+    </div>
+</div>
+
+
+
+<!-- <button id="abc">clickc me</button> -->
+    <script>
+        $('#sign-up-form-div').css('z-index','-2');
+       
+        $('#ab').click(function(){
+                $('#sign-in-form-div').removeClass('de');
+                $('#sign-up-form-div').removeClass('cd');
+                $('#sign-in-form-div').addClass('cd');
+                $('#sign-up-form-div').addClass('de');
+                $('#sign-in-form-div').css('opacity','0');
+                $('#sign-up-form-div').css('opacity','1');
+                $('#sign-up-form-div').css('z-index','0');
+                $('#sign-in-form-div').css('z-index','-2');
+        });
+        $('#ba').click(function(){
+                $('#sign-in-form-div').removeClass('cd');
+                $('#sign-up-form-div').removeClass('de');
+                $('#sign-in-form-div').addClass('de');
+                $('#sign-up-form-div').addClass('cd');
+                $('#sign-in-form-div').css('opacity','1');
+                $('#sign-up-form-div').css('opacity','0');
+                $('#sign-up-form-div').css('z-index','-2');
+                $('#sign-in-form-div').css('z-index','0');
+
+        });
+    </script>
+
+
+

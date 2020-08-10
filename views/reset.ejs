@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/reset-password.css">
+<div id="sign-in-cover">
+    <img src="/images/sign-in-cover.jpg" alt="background cover">
+</div>
+<% if(!isValid | !reset_info.isValid){ %>
+    <h2>This token is expired</h2>
+<% }else { %>
+
+    <div id="reset-password-div">
+        <span><b>Hi <%= reset_info.user.name %> ! Please Enter your new Password</b></span>
+        <form id="reset-password-form" action="/users/reset" method="POST">
+            <input type="password" name="new_password" placeholder="Enter new password">
+            <input type="password" name="conform_new_password" placeholder="Conform password">
+            <input type="hidden" name="user_id" value="<%= reset_info.user._id %>">
+            <input type="hidden" name="token_id" value="<%= reset_info._id %>">
+            <button type="submit">Change Password</button>
+        </form>
+    </div>
+    
+
+<% } %>

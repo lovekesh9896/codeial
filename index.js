@@ -1,6 +1,11 @@
 const express = require('express');
+const env = require('./config/environment');
+const logger = require('morgan');
+
 const cookieParser = require('cookie-parser');
 const app = express();
+require('./config/view-helpers')(app);
+
 const port = 8000;
 const expressLayouts = require('express-ejs-layouts');
 const db = require('./config/mongoose');
@@ -8,14 +13,25 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
+const passportGoogle = require('./config/passport-google-oauth-startegy');
+const passportFacebook = require('./config/passport-facebook-oauth-startegy');
+const passportTwitter = require('./config/passport-twitter-oauth-strategy');
+
 const MongoStore = require('connect-mongo')(session);
 // const sassMiddleware =require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
+// setup the chat server to be used with socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat-sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log("Chat server is listing on port 5000");
+const path = require('path'); 
 // app.use(sassMiddleware({
-//     src: './assets/scss',
-//     dest: './assets/css',
+//     src: path.join(__dirname,env.asset_path,'scss'),
+//     dest: path.join(__dirname,env.asset_path,'css'),
 //     debug: true,
 //     outputStyle: 'extended',
 //     prefix: '/css'
@@ -24,7 +40,11 @@ app.use(express.urlencoded());
 
 app.use(cookieParser());
 
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
+// make the uploads path available to the browser
+app.use('/uploads', express.static(__dirname + '/uploads'));
+
+app.use(logger(env.morgan.mode, env.morgan.options));
 
 app.use(expressLayouts);
 // extract style and scripts from sub pages into the layout
@@ -42,7 +62,7 @@ app.set('views', './views');
 app.use(session({
     name: 'codeial',
     // TODO change the secret before deployment in production mode
-    secret: 'blahsomething',
+    secret: env.session_cokkie_key,
     saveUninitialized: false,
     resave: false,
     cookie: {

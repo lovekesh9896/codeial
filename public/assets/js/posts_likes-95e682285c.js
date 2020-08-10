@@ -1,0 +1,1 @@
+{$(".toogle-like-button").each((function(){}));let e=document.getElementsByClassName("like-toogle-form");for(let t=0;t<e.length;t++)$(e[t]).click((function(e){e.preventDefault(),console.log(e.target.value)}))}

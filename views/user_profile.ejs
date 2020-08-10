@@ -1,17 +1,169 @@
+<link rel="stylesheet" href="<%= assetPath('css/user_profile.css') %>">
+<div id="cover-image">
+    
+</div>
 
-<h1><%= title %></h1>
+<div id="left-section" style="top: 0; height: 100vh;">
+    
+    <div id="website-logo">
+        <img src="/images/logo.png" alt="logo">
+        <h2><a href="/" style="color: black;"> CODE<span style="color: orange; text-decoration: italics;">IAL</span></a></h2>
+        <a href="/users/profile/<%= user.id %>" ><span class="material-icons " id="profile-settings" >settings</span></a>
+    </div>
+    <div id="curr-user-info">
+        <% if(locals.user) { %> 
+            <img src="<%= user.avatar %>"  alt="profile" width="33%">
+            <span><b><%= user.name %></b></span>
+            
+        <% }else{ %> 
+
+        <% } %> 
+    </div>
+
+    <div class="center-align-div">
+        <a href="/">
+            <span class="material-icons grey left-margin-15">home</span>
+            <span class="grey left-margin-30">Home</span>
+        </a>
+    </div>
+    <div class="center-align-div">
+        <a href="">
+            <span class="material-icons grey left-margin-15">whatshot</span>
+            <span class="grey left-margin-30">Trending</span>
+        </a>
+    </div >
+    <!-- <br> -->
+    <div class="center-align-div">
+        <a href="">
+            <span class="material-icons grey left-margin-15">explore</span>
+            <span class="grey left-margin-30">Explore</span>
+        </a>
+    </div>
+    <br>
+    
+    <hr>
+    <h3 style="text-align: center;">User Profile</h3>
+    <% if(locals.user) { %> 
+        <div class="center-align-div">
+            <a href="/users/profile/<%= user.id %>" >
+                <img src="<%= user.avatar %>"  alt="profile" width="15%" class="left-margin-15 blue">
+                <span class="grey left-margin-30 blue"><%= user.name %></span>
+            </a>
+        </div>  
+        <div class="center-align-div">
+            <a href="/users/sign-out">
+            
+                <span class="material-icons left-margin-27 grey" style="transform: rotate(180deg);">login</span>
+                <span class="grey left-margin-30">Log out</span>
+            </a>
+        </div>
+        <!-- <br> -->
+            
+    <% } %>
+    <hr>
+    <h3 style="text-align: center;">Friends</h3>
+    <% for(u of all_users) { %>
+        <div class="center-align-div">
+            <a href="/users/profile/<%= u.id %>">
+                <img class="grey left-margin-15" src="<%= u.avatar %>" alt="not" width="15%">
+                <span class="grey left-margin-30"><%= u.name %></span>
+            </a>
+        </div>
+        
+    <% } %>
+</div>
+<div id="horizontal-cover-strip">
+    <div id="profile-image">
+        <% if(user.avatar){ %>
+            <img src="<%= user.avatar %>" alt="No profile" >
+        <% }else{ %> 
+            <img src="/images/profile.jpg" alt="No profile">
+        <% } %>
+        <div id="user-name">
+            <b><%= user.name %></b>
+            <br>
+            <% if(user.profession){ %> 
+                <span><%= user.profession %></span>
+            <% }else{ %>
+                <span>iron man</span>    
+            <% } %>
+        </div>
+    </div>
+    <div id="box-div">
+        <div id="user-info-div">
+            <div id="posts-and-comments-count">
+                <span><img src="/images/messages.png" alt="messages">245</span>
+                <span><img src="/images/comments.png" alt="messages"><%= user.comments %></span>
+                <span><img src="/images/saved.png" alt="messages"><%= user.post %></span>
+            </div>
+        
+            <div id="about-user">
+                <% if (user.about) { %>
+                    <span><%= user.about %></span>
+                <% } else { %>
+                    <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only. </span>
+
+                <% } %>
+            </div>
+            <div id="user-social">
+                <% for(let social in user.social) { %>
+                    <a href=""><img src="/images/google.png" alt=""></a>
+                <% } %>
+                <a href=""><img src="/images/google.png" alt=""></a>
+                <a href=""><img src="/images/facebook.png" alt=""></a>
+                <a href=""><img src="/images/insta.png" alt=""></a>
+                <a href=""><img src="/images/linkedin.png" alt=""></a>
+            </div>
+        </div>
+        <% if (user.id == profile_user.id) { %>
+            <div id="profile-update">
+                <form id="profile-update-form" action="/users/update/<%= profile_user.id %>" enctype="multipart/form-data" method="POST">
+                    <input type="text" name="name" placeholder="Enter name" value="<%= profile_user.name%>" required>
+                    <input type="text" name="email" placeholder="Enter email" value="<%= profile_user.email%>" required>
+                    <input type="file" name="avatar" placeholder="profile picture">
+                    <input type="text" name="profession" placeholder="Enter Profession" value="<%= profile_user.profession%>" >
+                    <input type="date" name="birth" placeholder="Enter Birthday">
+                    <textarea name="about" placeholder="Write About Yourself"></textarea>
+                    
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        <% } %>
+    </div>
+   
+    
+    <% if (user.id == profile_user.id) { %>
+        <button id="edit-profile">Edit Profile</button>
+    <% } else { %>
+        <button id="edit-profile">Follow</button>
+    <% } %>
+</div>
+
+<script>
+    let a = 2;
+    $('#edit-profile').click(function(){
+        if(a==1){
+            $('#box-div').animate({ scrollTop: 0}); 
+            $('#box-div').css('height','50vh');
+            $('#profile-image').css('flex-wrap','wrap');
+            $('#profile-image').css('width','120px');
+            $('#edit-profile').css('background-color','green');
+            $('#edit-profile').text('Edit Profile');
+            a = 2;
+        }else{
+            $('#box-div').animate({ scrollTop: $('#user-info-div').height()}); 
+            $('#box-div').css('height','68vh');
+            $('#profile-image').css('flex-wrap','initial');
+            $('#profile-image').css('width','100%');
+            $('#edit-profile').css('background-color','red');
+            $('#edit-profile').text('Cancel');
+            a = 1;
+
+        }
+
+        
+
+    })
+</script>
 
 
-<% if (user.id == profile_user.id) { %>
-
-    <form action="/users/update/<%= profile_user.id %>" method="POST">
-        <input type="text" name="name" placeholder="Enter name" value="<%= profile_user.name%>" required>
-        <input type="text" name="email" placeholder="Enter email" value="<%= profile_user.email%>" required>
-        <button type="submit">Update</button>
-    </form>
-
-<% } else { %>
-    <p><%= profile_user.name %></p>
-    <p><%= profile_user.email %></p>
-
-<% } %>

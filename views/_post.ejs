@@ -3,10 +3,13 @@
     <% if(locals.user && locals.user.id == post.user.id){ %>
         <small class="delete-post">
             <a class="delete-post-button" href="/posts/destroy/<%= post.id %>"><span class="material-icons delete">delete</span></a>
-                
-                    
         </small>
     <% } %>
+    <a class="toogle-like-button" data-likes="<%= post.likes.length %>" href="/likes/toogle/?id=<%=post._id%>&type=Post">
+        
+        <span class="material-icons">favorite_border</span>
+        <span><%= post.likes.length %></span>
+    </a>
     <span class="post-content"><%= post.content %> </span>
     <span class="post-author"><%= post.user.name %></span>
     <%- include('_comment')-%>

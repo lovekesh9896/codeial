@@ -1,12 +1,86 @@
-<link rel="stylesheet" href="/css/user_profile.css">
+<link rel="stylesheet" href="<%= assetPath('css/user_profile.css') %>">
+<div id="website-logo">
+    <div id="left-side-website-logo">
+        <img src="/images/logo.png" alt="logo">
+        <h2><a href="/" style="color: black;"> CODE<span style="color: orange; text-decoration: italics;">IAL</span></a></h2>
+        <a href="/users/profile/<%= user.id %>" ><span class="material-icons " id="profile-settings" >settings</span></a>
+    </div>
+    <div id="search-bar">
+        <form action="" method="get">
+            <input type="text" name="search" placeholder="Search here...." >
+            <button type="submit" disabled><span class="material-icons ">search</span></button>
+        </form>
+    </div>
+    <div id="another-div">
+
+    </div>
+</div>
 <div id="layout-container">
     <div id="left-section">
-        <h4>Friends</h4>
-        <% for(u of all_users) { %>
-            <p>
-                <a href="/users/profile/<%= u.id %>"><%= u.name %></a>
-            </p>
+        
+
+        <div id="curr-user-info">
+            <% if(locals.user) { %> 
+                <img src="<%= user.avatar %>"  alt="profile" width="33%">
+                <span><b><%= user.name %></b></span>
+                
+            <% }else{ %> 
+
+            <% } %> 
+        </div>
+
+        <div class="center-align-div">
+            <a href="/">
+                <span class="material-icons blue left-margin-15">home</span>
+                <span class="left-margin-30 blue1">Home</span>
+            </a>
+        </div>
+        <div class="center-align-div">
+            <a href="">
+                <span class="material-icons grey left-margin-15">whatshot</span>
+                <span class="grey left-margin-30">Trending</span>
+            </a>
+        </div >
+        <!-- <br> -->
+        <div class="center-align-div">
+            <a href="">
+                <span class="material-icons grey left-margin-15">explore</span>
+                <span class="grey left-margin-30">Explore</span>
+            </a>
+        </div>
+        <br>
+        
+        <hr>
+        <h3 style="text-align: center;">User Profile</h3>
+        <% if(locals.user) { %> 
+            <div class="center-align-div">
+                <a href="/users/profile/<%= user.id %>" >
+                    <img src="<%= user.avatar %>"  alt="profile" width="15%" class="left-margin-15">
+                    <span class="grey left-margin-30"><%= user.name %></span>
+                </a>
+            </div>  
+            <div class="center-align-div">
+                <a href="/users/sign-out">
+                
+                    <span class="material-icons left-margin-27 grey" style="transform: rotate(180deg);">login</span>
+                    <span class="grey left-margin-30">Log out</span>
+                </a>
+            </div>
+            <!-- <br> -->
+                
         <% } %>
+        <hr>
+        <h3 style="text-align: center;">Friends</h3>
+        <% for(u of all_users) { %>
+            <div class="center-align-div">
+                <a href="/users/profile/<%= u.id %>">
+                    <img class="grey left-margin-15" src="<%= u.avatar %>" alt="not" width="15%">
+                    <span class="grey left-margin-30"><%= u.name %></span>
+                </a>
+            </div>
+            
+        <% } %>
+        <small class="grey">Created and Maintained by Lovekesh</small>
     </div>
     
     <div id="center-section">
@@ -15,7 +89,7 @@
             <div id="create-new-post">
                 
                 <form action="/posts/create" id="new-post-form" method="post">
-                    <img src="/images/profile1.jpg" id="profile-image">
+                    <img src="<%= user.avatar %>" id="profile-image">
                     <textarea name="content" cols="30" rows="4" placeholder="Create post" required></textarea>
                     <button type="submit" id="new-post-submit-button">Post</button>
                 </form>
@@ -36,6 +110,18 @@
     
 </div>
 
+
+<%- include('_chatbox') -%>
+
+
+<script src="/js/home_comments.js"></script>
 <script src="/js/home_posts.js"></script>
-<!-- <script src="/js/home_comments.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="/js/chat-engine.js"></script>
+<script src="/js/posts_likes.js"></script>
+<% if(locals.user) { %>
+    <script>
+        new chatEngine('user-chat-box', '<%= locals.user.email %>')
+    </script>    
+<% } %>
 

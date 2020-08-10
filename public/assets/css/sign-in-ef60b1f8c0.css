@@ -1,0 +1,235 @@
+/* this is style file for the sign up page */
+
+#header {
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden;
+}
+
+#footer {
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden;
+}
+
+hr {
+    width: 400px;
+    position: absolute;
+    bottom: 19.5vh;
+    left: 0vw;
+}
+
+
+#sign-in-cover {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: blur(2px);
+}
+
+#sign-in-cover img {
+    width: 100%;
+    height: 100%;
+}
+
+#sign-in-div {
+    width: 100%;
+    height: 37vh;
+    box-sizing: border-box;
+    margin-top: 0;
+}
+
+#sign-in-form-div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    overflow: hidden;
+    border-radius: 10px;
+    height: 70vh;
+    background-color: white;
+    padding: 10px 50px;
+    box-sizing: border-box;
+    text-align: center;
+
+    /* animation: rotateRight 1s ease-in-out; */
+}
+
+#sign-in-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+}
+
+#forgot-password{
+    margin-top: -5vh;
+    margin-bottom: 5vh;
+    margin-left: 13.5vw;
+}
+
+#sign-in-moto{
+    height: 10vh;
+    padding: 2vh;
+    box-sizing: border-box;
+}
+
+#sign-in-form input {
+    width: 300px;
+    height: 30px;
+    margin-bottom: 5vh;
+    border-radius: 4px;
+    border: 1px solid;
+    padding-left: 8px;
+    height: 35px;
+    font-size: 15px;
+}
+
+#sign-up-option {
+    position: absolute;
+    bottom: 3%;
+    left: 13%;
+}
+
+#or {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    border: 2px solid lightgray;
+    color: grey;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 19vh;
+    left: 14vw;
+}
+
+#in-social-login-div {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: transparent;
+    align-items: center;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 7vh;
+    left: 0vw;
+}
+
+#in-social-login-div span {
+    margin-top: -32px;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+
+.btn-in {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 60px;
+    margin: 10px 0;
+    opacity: 0.85;
+    display: inline-block;
+    font-size: 35px;
+    line-height: 20px;
+    text-decoration: none; /* remove underline from anchors */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input:hover,
+.btn-in:hover {
+    opacity: 1;
+}
+
+/* add appropriate colors to fb, twitter and google buttons */
+.fb {
+    background-color: #3B5998;
+    color: white;
+}
+
+.twitter {
+    background-color: #55ACEE;
+    color: white;
+}
+
+.google {
+    background-color: #dd4b39;
+    color: white;
+}
+
+/* /experiment */
+.cd {
+    animation: rotateLeft 1s ease-in-out;
+    transform: perspective(800px) rotateY(-180deg) translateZ(300px) translate(-50%, -50%);
+    z-index: -2;
+}
+
+.de{
+    animation: rotateRight 1s ease-in-out;
+    transform: perspective(800px) rotateY(-180deg) translateZ(300px) translate(-50%, -50%);
+    z-index: 1;
+}
+
+@keyframes rotateLeft {
+    0% {
+        opacity: 1;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: perspective(800px) rotateY(0deg) translateZ(0px); 
+        transform: perspective(800px) rotateY(0deg) translateZ(0px) translate(-50%, -50%);
+        z-index: 1;
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        transform-origin: 0 0;
+        -webkit-transform: perspective(800px) rotateY(-180deg) translateZ(300px);
+        transform: perspective(800px) rotateY(-180deg) translateZ(300px) translate(-50%, -50%);
+        z-index: -2;
+        
+    }
+}
+
+@keyframes rotateRight {
+    0% {
+        opacity: 0;
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        transform-origin: 0 0;
+        -webkit-transform: perspective(800px) rotateY(-180deg) translateZ(300px);
+        transform: perspective(800px) rotateY(180deg) translateZ(300px) translate(-50%, -50%);
+        z-index: -2;
+        
+    }
+
+    100% {
+        opacity: 1;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: perspective(800px) rotateY(0deg) translateZ(0px); 
+        transform: perspective(800px) rotateY(0deg) translateZ(0px) translate(-50%, -50%);
+        z-index: 1;
+        
+    }
+
+   
+}

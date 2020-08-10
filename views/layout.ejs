@@ -3,12 +3,12 @@
         <title><%= title %></title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-      <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+      <script src="/js/jquery.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.2.0-beta/noty.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxy/1.6.1/scripts/jquery.ajaxy.min.js"></script>
         <link rel="icon" href="/images/icon.png" sizes="16x16" type="image/png">
-        <link rel="stylesheet" href="/css/layout.css">
+        <link rel="stylesheet" href="<%= assetPath('css/layout.css') %>">
         <%- style %>
     </head>
 <body>
@@ -19,6 +19,8 @@
 
     <%- include('_footer'); %>
     
+    
+
     <%- script %>
     <script>
         <% if (flash.success && flash.success.length > 0) {%>
@@ -42,7 +44,9 @@
                 
             }).show();    
         <% } %>
+        
     </script>
+    <script src="/js/jquery.js"></script>
     
 </body>
 </html>
